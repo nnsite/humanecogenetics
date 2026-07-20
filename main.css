@@ -76,11 +76,6 @@
 		}
 	}
 
-	p.conclusion::before {
-		content: "🠪 ";
-		color: var(--emphasis-color);
-		font-weight:bold;
-		line-height:0}
 	main {
 		white-space: pre-line;
 		inline-size:100%;
@@ -88,6 +83,8 @@
 		counter-set: externalEmptyCounter 0;
 		::marker {color:var(--emphasis-color)}
 		> * {padding-inline-start:var(--main-inline-margin)}
+		p {margin-block:0;text-wrap:pretty}
+		p+p {	text-indent: 1.5em;}
 		a {	text-decoration: LinkText underline;
 			text-decoration-thickness: 1.5px;
 			text-underline-position: under;
@@ -221,7 +218,6 @@
 		grid-auto-flow: column;
 		grid-auto-columns: minmax(0, 1fr);
 		figure {inline-size:100%}}
-	p + :is(ul,ol) {margin-block-start:0}
 	.alert, section {
 		background: var(--color);
 		color: contrast-color(var(--color))
@@ -276,10 +272,7 @@
 			margin-inline-start:var(--main-inline-margin);
 			>p:first-child {display:inline}}
 	}
-	p {	margin-block: 10px;}
-	main li {text-wrap:pretty;
-		white-space:pre-line;
-	}
+	main li {white-space:pre-line;}
 	main svg, main img {
 		inline-size:100%;
 		block-size: auto;
@@ -339,15 +332,13 @@
 		background: hsl(from var(--background-color) h s l / .8);
 		padding: 3px}
 	.headings {
-		margin-block: 4px .5rem;
+		margin-block:.3em;
 		color: var(--emphasis-color);
 		&:target {scroll-margin-block-start: var(--height-header)}
 	}
-	h2{	font-size:1.8em;
-		counter-increment:h2}
+	h2{	font-size:1.8em; counter-increment:h2}
 	h2 a::before{content:counter(h2, roman)". "}
-	h3 {font-variant: small-caps;
-		margin-block:unset}
+	h3 {font-variant: small-caps}
 	[role=doc-noteref]{cursor:s-resize}
 	blockquote {
 		margin: unset;
@@ -399,7 +390,6 @@
 } /* End layer */
 
 @layer {
-	p:has(+ul,+ol) {margin-block-end: unset}	
 	[title], a[aria-label] {
 		--offset-bottom: 1rlh;
 	    figure &::before {--offset-bottom:0}
@@ -535,8 +525,7 @@
 	[title]::before {content: counter(externalEmptyCounter)". "attr(title)}
 	[aria-label]::before {content: counter(externalEmptyCounter)". "attr(aria-label)" :\a"attr(href)}
 }
-@container style(--effectively-light: false) {
-	.headings {font-weight: unset}}
+.headings {font-weight: unset}}
 @container style(--effectively-light: true) {
 	:target-current, [aria-current] {
     	color: unset;
